@@ -2,12 +2,12 @@ package com.milan.catalog_service.web;
 
 import com.milan.catalog_service.domain.Book;
 import com.milan.catalog_service.domain.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController("/books")
+@RestController
+@RequestMapping("/books")
 public class BookController {
     private final BookService bookService;
 
@@ -27,7 +27,7 @@ public class BookController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book post(@RequestBody Book book){
+    public Book post(@Valid @RequestBody Book book){
         return bookService.addBookToCatalog(book);
     }
 
@@ -38,7 +38,7 @@ public class BookController {
     }
 
     @PutMapping("{isbn}")
-    public Book update(@PathVariable String isbn, @RequestBody Book book){
+    public Book update(@PathVariable String isbn, @Valid @RequestBody Book book){
         return bookService.editBookDetails(isbn, book);
     }
 
